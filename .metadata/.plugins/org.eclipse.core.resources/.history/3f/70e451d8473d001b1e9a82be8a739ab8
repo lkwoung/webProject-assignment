@@ -1,0 +1,197 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>사용자 자리 view</title>
+  <link rel="stylesheet" href="css/userView.css">
+  <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="nav-header">
+    <div class="nav-brand">
+    <i class="fa fa-bars fa-3x"></i>
+    <div class="header-links">
+      <ul>
+        <li data-menuanchor="thirdPage"><a href="index.jsp">LOGOUT</a></li>
+        <li data-menuanchor="secondPage"><a href="menu.jsp">MENU</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+<!-- partial:index.partial.html -->
+<div id="app-cover">
+  <div class="row">
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-1" >
+          <div class="knobs"></div>
+          <div class="layer">
+         <div class="0" style="text-align:center;padding-top:3px;">00:00:00</div>
+         <div id="0-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+         <div id="0-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+         <div class="0buttons" style="top:20%; padding-left:10px; ">         
+         <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,3600);" value="한시간추가"/>   
+         <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,7200);" value="두시간추가"/>
+         <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;"onclick="fucEndTimer(0);" value="사용종료"/>
+         </div>
+          </div>
+             </div>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-2">
+          <div class="knobs"></div>
+             <div class="layer">
+                <div class="1" style="text-align:center;padding-top:3px;">00:00:00</div>
+         <div id="1-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+         <div id="1-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+         <div class="1buttons" style="top:20%; padding-left:10px; ">         
+         <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,3600);" value="한시간추가"/>   
+         <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,7200);" value="두시간추가"/>
+         <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;"onclick="fucEndTimer(0);" value="사용종료"/>
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-3">
+          <div class="knobs"></div>
+          <div class="layer">
+             <div class="2">00:00:00</div>
+             <div id="2-state">사용중</div>
+             <div id="2-user"> </div>
+         <input type="button" onclick="fncAddTime(2,3600);" value="한시간추가"/>
+         <input type="button" onclick="fncAddTime(2,7200);" value="두시간추가"/>
+         <input type="button" onclick="fucEndTimer(2);" value="사용종료"/>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-4">
+          <div class="knobs"></div>
+          <div class="layer">
+          <div class="3">00:00:00</div>
+          <div id="3-state">사용중</div>
+          <div id="3-user"> </div>
+         <input type="button" onclick="fncAddTime(3,3600);" value="한시간추가"/>
+         <input type="button" onclick="fncAddTime(3,7200);" value="두시간추가"/>
+         <input type="button" onclick="fucEndTimer(3);" value="사용종료"/>
+         </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-5">
+          <div class="knobs"></div>
+          <div class="layer">
+             <div class="4">00:00:00</div>
+             <div id="4-state">사용중</div>
+             <div id="4-user"> </div>
+         <input type="button" onclick="fncAddTime(4,3600);" value="한시간추가"/>
+         <input type="button" onclick="fncAddTime(4,7200);" value="두시간추가"/>
+         <input type="button" onclick="fucEndTimer(4);" value="사용종료"/>
+         </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+
+<!-- partial -->
+<script type="text/javascript">
+       var handler = new Array();
+       var leftT = new Array();
+       /* Timer */
+       function countdown(className, seconds,user){
+          var tnum = className; //타이머 번호
+          var element,stateName,userName,endTime, hours, mins, secs, msLeft, time;
+          
+          stateName = className.concat("-state");
+          userName = className.concat("-user");
+         var sUser = String(user);
+          function updateTimer(){
+                      msLeft = endTime - (+new Date);
+                      if ( msLeft < 0 ) { // 시간 초과시 이벤트 영역
+                         stateName = className.concat("-state");
+                         document.getElementById(stateName).innerHTML = '빈좌석';
+                         document.getElementById(userName).innerHTML = ' ';
+                      }
+                      else {
+                         document.getElementById(stateName).innerHTML = '사용중';//빈좌석을 사용중으로 변경 후 
+                         document.getElementById(userName).innerHTML = sUser ; //사용자 이름을 표기
+                              time = new Date( msLeft );
+                              leftT[tnum] = msLeft; //현재 남은 시간을 전역으로 추가
+                              hours = ('0' + time.getUTCHours()).slice(-2);
+                              mins  = ('0' + time.getUTCMinutes()).slice(-2);
+                              secs  = ('0' + time.getUTCSeconds()).slice(-2);
+                              element.innerHTML = hours + ':' + mins + ':' + secs;
+                              handler[tnum] = setTimeout(updateTimer, time.getUTCMilliseconds());
+                      }
+               }
+               element = document.getElementsByClassName(className);
+               if(element.length!=0) {// 해당 타이머가 맞는지 확인
+                      element = element[0];
+                      endTime = (+new Date) + 1000 * seconds;
+                      updateTimer(); // 타이머 실행
+                      
+               } else { //해당 타이머가 아니면...
+                      //alert("no timer");
+               }
+       }
+       
+       
+       fncLoadTimer();
+  //     countdown('0', 3600);  // seconds 로 생성
+    //   countdown('1', 1234);  // seconds 로 생성
+      // countdown('2', 5055);  // seconds 로 생성
+       //countdown('3', 0);  // seconds 로 생성
+       //countdown('4', 3);  // seconds 로 생성
+  // countdown('5', 0);  // seconds 로 생성
+  
+
+function fncAddTime(tableNum,time) { //버튼 클릭
+         clearTimeout(handler[tableNum]);
+            tleft = leftT[tableNum] / 1000;
+            timerName = String(tableNum);
+            countdown(timerName,tleft + time,"a");
+}
+  
+
+  
+function fncLoadTimer() { //페이지 최초 실행시 db에서 불러오기
+   for (i = 0; i < 5 ; i ++ ){ // 좌석수 만큼 반복
+      var clssI = String(i); //i순서를 문자열(클래스명이 문자열임)로 바꾼 클레스i 변수
+      countdown(clssI,10,"철수");  // seconds 로 생성
+   }
+}
+
+function fncMakeTimer(tableNum) { //사용자 새로 등록하기
+   var user = "갑수"
+   var clss = String(tableNum);
+   countdown(clss, 3600,"갑수");   // seconds 로 생성
+}
+
+function fucEndTimer(timernum){ //사용종료
+   clearTimeout(handler[timernum]);
+   timerName = String(timernum);
+   countdown(timerName,0);
+} 
+
+</script>
+
+
+</body>
+</html>

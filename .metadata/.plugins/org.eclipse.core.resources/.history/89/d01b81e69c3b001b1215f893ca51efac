@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta charset="UTF-8"/>
+  <title>Enter Page</title>
+  <link rel="stylesheet" href="css/enter.css">
+</head>
+<body>
+안녕하세요
+<div id="box3" class="container">
+  <svg version="1.1"
+     x="0px" y="0px" width="350px" height="350px" viewBox="0 0 520 520" style="enable-background:new 0 0 520 520;"
+     xml:space="preserve">
+  <g>
+    <circle class="st0" cx="260" cy="260" r="258"/>
+  </g>
+  </svg>
+</div>
+<!-- ////////////////////////////////// CREDIT ////////////////////////////////// -->
+<a href="index.jsp" target="_blank">
+  <div id="link">
+    <i class="fab fa-codepen"></i>
+    <p>들어가기</p>
+  </div>
+</a>
+</body>
+</html>

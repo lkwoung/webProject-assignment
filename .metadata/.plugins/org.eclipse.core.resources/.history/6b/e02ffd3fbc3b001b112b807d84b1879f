@@ -1,0 +1,5 @@
+$('button').on('click', function() {
+  $('.block-signup')
+    .toggleClass('is-active');
+  $('new').css('visibility','hidden');
+});

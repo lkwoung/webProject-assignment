@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <title>Welcome Page</title>
+  <link rel="stylesheet" href="css/welcome.css">
+</head>
+<body>
+<div class="fancy-button">
+  <div class="left-frills frills"></div>
+  <div class="button">돌아가기</div>
+  <div class="right-frills frills"></div>
+</div>
+</body>

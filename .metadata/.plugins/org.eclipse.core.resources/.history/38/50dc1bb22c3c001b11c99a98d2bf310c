@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+</head>
+<body>
+<div style="background:url(image/welcome.png) no-repeat 0 0;background-size:100% 100%;">
+<button><span>돌아가기</span></button>
+</div>
+</body>

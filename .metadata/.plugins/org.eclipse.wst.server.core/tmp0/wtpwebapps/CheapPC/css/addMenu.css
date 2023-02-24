@@ -1,0 +1,12 @@
+body
+{
+	background: url(image/menu.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+    margin: 0;
+    font-size: 16px;
+    font-family:'Hanna', sans-serif; 
+    -webkit-font-smoothing: antialiased;
+}

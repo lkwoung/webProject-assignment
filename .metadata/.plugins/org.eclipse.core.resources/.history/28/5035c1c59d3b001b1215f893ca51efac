@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+@font-face {
+  src: url("css/font/hanna.ttf");
+  font-family:"hanna";
+}
+body {
+  background-color: #191A20;
+  font-family:"hanna";
+  margin: 0;
+  padding: 0;
+}
+/* /////////////////////////////////////////// circle //////////*/
+#box3 {
+  height: 350px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 350px;
+}
+#box3 .st0{
+  animation: circle-anima 15s infinite linear;
+  transform-origin: center;
+  fill: none;
+  opacity: 0;
+  stroke: #CF002F;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5.0035,15.0104;
+  z-index: -5;
+}
+@keyframes circle-anima {
+  0% {""}
+  10% {opacity: 1}
+  100% {transform: rotate(360deg)}
+}
+/* /////////////////////////////////////////// credit //////////*/
+#link { 
+  bottom: 20px;
+  color: #CF002F;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#link p {font-size: 20px; margin: 0; margin-left: 5px;}
+#link:hover {opacity: 1;font-family:"hanna"; }

@@ -1,0 +1,43 @@
+package web.copy;
+
+import java.sql.*;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+public class ContextLoaderListener implements ServletContextListener {
+	Connection conn;
+	
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		// ServletContextListener는 고유 자원이나 정보를 미리 바인딩해서 서블릿들이 공유하여 사용
+		ServletContext sc = sce.getServletContext();
+		
+		String temp = sc.getInitParameter("dbURL");
+		String url = temp + "?&useSSL=false&serverTimezone=UTC"; // DB오류 때문에 추가
+		String id = sc.getInitParameter("dbID");
+		String pw = sc.getInitParameter("dbPW");
+		try{
+			// 드라이버를 로드하고 데이터베이스에 연결해준다. 
+			Class.forName(sc.getInitParameter("dbDriver"));
+			// 특정 데이터베이스와의 연결을 담당
+			conn = DriverManager.getConnection(url, id, pw);
+			
+			// 이름이 name인 속성의 값을 value로 지정
+			if (conn != null)
+				sc.setAttribute("DBconnection", conn);
+					
+		}catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void contextDestroyed(ServletContextEvent sce) {
+		try {
+			conn.close();
+		}catch(SQLException e) {
+			
+		}
+	}
+}

@@ -1,0 +1,81 @@
+memberList.jsp
+<%@ page contentType="text/html; charset=utf-8" %>
+<html>
+
+<head>
+ <link rel="stylesheet" href="css/userView.css">
+<link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet" type="text/css" />
+<title>회원 목록 조회</title>
+<style>
+      table {
+      margin: 80px auto;
+       width: 60%;
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+      }
+      th, td {
+        border-bottom: 1px solid #444444;
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+      	background-color:#bbdefb;
+      }
+      td {
+    background-color: #e3f2fd;
+  }
+    </style>
+
+</head>
+
+
+<body>
+<div class="nav-header">
+    <div class="nav-brand">
+    <i class="fa fa-bars fa-3x"></i>
+    <div class="header-links">
+      <ul>
+        <li data-menuanchor="thirdPage"><a href="index.jsp">LOGOUT</a></li>
+        <li data-menuanchor="secondPage"><a href="menu.jsp">MENU</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+
+ <table>
+      <thead>
+        <tr>
+          <th> </th><th>이름</th><th>ID명</th><th>Passward</th><th>생년월일</th><th>성별</th><th>평생회원여부</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%--반복문으로 하시면 됩니다. --%>
+        <tr>
+          <td>1</td><td>조수빈</td><td>sb196</td><td>pwsd1105</td><td>991105</td><td>여성</td><td>Y</td>
+        </tr>
+        <tr>
+          <td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td><td>Amet</td><td>Amet</td>
+        </tr>
+        <tr>
+          <td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td><td>Amet</td><td>Amet</td>
+        </tr>
+        <tr>
+          <td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td><td>Amet</td><td>Amet</td>
+        </tr>
+        <tr>
+          <td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td><td>Amet</td><td>Amet</td>
+        </tr>
+        <tr>
+          <td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td><td>Amet</td><td>Amet</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+<footer class="container">
+<p>&copy; BookMarket</p>
+</footer>
+</body>
+
+</html>

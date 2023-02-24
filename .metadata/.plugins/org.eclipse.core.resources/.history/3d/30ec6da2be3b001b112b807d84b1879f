@@ -1,0 +1,11 @@
+var flag = true;
+$('button').on('click', function() {
+  $('.block-signup').toggleClass('is-active');
+  if(flag == true){
+     $('.button-secondary').hide();
+     flag = false;
+  }else{
+    $('.button-secondary').show();
+    flag = true;
+  }  
+});

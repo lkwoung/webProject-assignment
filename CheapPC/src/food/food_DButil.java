@@ -1,0 +1,71 @@
+package food;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.servlet.ServletContext;
+
+public class food_DButil {
+	static Statement stmt = null;
+	static PreparedStatement pstmt = null;
+	static Connection connection = null;
+	
+	// ���� ���ε� �ռ�
+	public static boolean insertDB(ServletContext sc, foodBean new_Food) {
+		connection = (Connection) sc.getAttribute("DBconnection");
+		
+		String sql = "insert into food(code, food_name, price, description, image) values(?, ?, ?, ?, ?)";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, new_Food.getCode());
+			pstmt.setString(2, new_Food.getFood_Name());
+			pstmt.setString(3, new_Food.getPrice());
+			pstmt.setString(4, new_Food.getDescription());
+			pstmt.setString(5, new_Food.getImage());
+			pstmt.executeUpdate();
+
+			System.out.println("food db insert");
+		}catch (Exception e) {
+			System.out.println("foodDButil.java : insertDB() - db insert");
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public static ArrayList<foodBean> getFoodList(ServletContext sc){
+		connection =(Connection) sc.getAttribute("DBconnection");
+		ArrayList<foodBean> food_List = new ArrayList<foodBean>(); 
+		
+		String sql = "select * from food";
+		
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				foodBean food = new foodBean();
+				food.setCode(rs.getInt("code"));
+				food.setFood_Name(rs.getString("food_name"));
+				food.setPrice(rs.getString("price"));
+				food.setDescription(rs.getString("description"));
+				food.setImage(rs.getString("image"));
+				
+				food_List.add(food);
+			}
+			rs.close();
+			
+		}catch(Exception e){
+			System.out.println("DButil.java : seleteDB() - db selete");
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return null;
+		}		
+		return food_List;
+	}
+}

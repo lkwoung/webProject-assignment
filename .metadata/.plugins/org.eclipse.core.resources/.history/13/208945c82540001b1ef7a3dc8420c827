@@ -1,0 +1,83 @@
+package food.copy;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+
+/**
+ * Servlet implementation class Food_ControllerServlet
+ * ?Œ?‹ ?—…ë¡œë“œ ì²˜ë¦¬ Servlet 
+ * ?Œ?‹?— ???•œ ? •ë³´ë?? jspë¡œë??„° ë°›ì•„?? DB?‘?—…?„ ?ˆ˜?–‰?•˜ê³? ?„±ê³µì—¬ë¶??— ?”°?¼ ?‹¤ë¥? ?™”ë©´ì„ ì¶œë ¥?•´ì¤??‹¤.
+ */
+// ?´ë¯¸ì? ê°?? ¸?˜¤ê¸°ìœ„?•´ @MultipartConfigì¶”ê?
+@MultipartConfig
+public class Food_ControllerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public Food_ControllerServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		//JSPë¡œë??„° ? •ë³? ë°›ì•„?˜¤ê¸?
+		int code = Integer.parseInt(request.getParameter("code"));
+		String food_Name = request.getParameter("food_Name");
+		String price = request.getParameter("price");
+		String description = request.getParameter("description");
+		
+		//?´ë¯¸ì? ?—…ë¡œë“œ
+		Part part = request.getPart("Image");	
+		String dir = "C:\\upload\\";
+		String filename = UUID.randomUUID().toString().replace("-", "");
+		String ext = ".jpg";
+		part.write(dir+filename+ext);
+		String image = dir+filename+ext;
+		
+		// foodBean ê°ì²´?— ? •ë³? ?„£ê³? ?´?˜?Š¤ ë³??ˆ˜ set?•˜ê¸?
+		foodBean new_Food = new foodBean();
+		new_Food.setCode(code);
+		new_Food.setFood_Name(food_Name);
+		new_Food.setPrice(price);
+		new_Food.setDescription(description);
+		new_Food.setImage(image);
+		
+		// DB ServletContext ?ƒ?„±
+		ServletContext sc = getServletContext();
+		
+		// DB insert?•¨?ˆ˜ ?˜¸ì¶?
+		boolean isCompleteUpload = food_DButil.insertDB(sc, new_Food);
+		
+		// ?„±ê³? ?—¬ë¶??— ?”°?¼ ì¶œë ¥?™”ë©? ? œ?–´
+		if(isCompleteUpload){
+			System.out.println("?Œ?‹ ?—…ë¡œë“œ ?„±ê³?");
+			response.sendRedirect("food_main_Admin.jsp");
+		}
+		else{
+			System.out.println("?‹¤?Œ¨");		
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('?•­ëª©ì„ ?‹¤?‹œ ?™•?¸?•´ì£¼ì„¸?š”')");
+			script.println("history.back()");
+			script.println("</script>");
+			//PrintWriter out = response.getWriter();
+			//out.println("<h2>Upload Error<h2>");	
+			response.sendRedirect("food_main_Admin.jsp");
+		}
+	}
+}

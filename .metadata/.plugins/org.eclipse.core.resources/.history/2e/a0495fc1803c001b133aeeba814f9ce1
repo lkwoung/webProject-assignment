@@ -1,0 +1,259 @@
+/* CSS rules are kept repetitive so that you can get CSS rules for each button easily :) */
+
+*
+{
+    user-select: none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+*:focus
+{
+    outline: none;
+}
+
+body
+{
+	background: url(image/user.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+    margin: 0;
+    font-size: 16px;
+    font-family:'Hanna', sans-serif; 
+}
+img.user {
+	
+	min-height: 100%;
+	min-width: 1024px;
+	width: 100%;
+	height: auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+@media screen and (max-width: 1024px) {
+img.user {
+	left: 50%;
+	margin-left: -512px; 
+	}
+}
+
+a* {
+  box-sizing: border-box;
+}
+*:before, *:after {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 60em;
+  min-width: 45em;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  margin: 0 auto;
+  top: 0;
+  z-index: 3;
+}
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  float: right;
+}
+nav li {
+  display: inline-block;
+  padding: 2em;
+  text-align: center;
+  transition: all .2s;
+}
+nav li:last-child {
+  padding-right: 0;
+}
+nav a {
+  color: #FFF;
+  text-decoration: none;
+  transition: all .3s;
+}
+nav a:hover {
+  color: #DDD;
+}
+
+#icon {
+  display: inline-block;
+  padding-top: .7em;
+  font-size: 2em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#nav-bg {
+  background: #222;
+  position: fixed;
+  height: 5em;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+
+
+/* menu */
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.header .menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #333;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 48em) {
+  .header li {
+    float: left;
+  }
+  .header li a {
+    padding: 20px 30px;
+  }
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+}
+
+
+
+Resources
+#app-cover
+{
+    display: table;
+    width: 600px;
+    margin: 80px auto;
+    counter-reset: button-counter;
+}
+
+.row
+{
+    display: table-row;
+}
+
+.toggle-button-cover
+{
+    display: table-cell;
+    position: relative;
+    width: 300px;
+    height: 200px;
+    box-sizing: border-box;
+    top: 150px;
+}
+
+.button-cover
+{
+    height: 100px;
+    width: 150px;
+    margin: 40px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px -8px #c5d6d6;
+    border-radius: 4px;
+}
+
+.button-cover:before
+{
+    counter-increment: button-counter;
+    content: counter(button-counter);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #000000;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+}
+
+.button-cover, .knobs, .layer
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+

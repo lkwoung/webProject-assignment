@@ -1,0 +1,83 @@
+package food;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+
+/**
+ * Servlet implementation class Food_ControllerServlet
+ * 음식 업로드 처리 Servlet 
+ * 음식에 대한 정보를 jsp로부터 받아와 DB작업을 수행하고 성공여부에 따라 다른 화면을 출력해준다.
+ */
+// 이미지 가져오기위해 @MultipartConfig추가
+@MultipartConfig
+public class Food_ControllerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public Food_ControllerServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		//JSP로부터 정보 받아오기
+		int code = Integer.parseInt(request.getParameter("code"));
+		String food_Name = request.getParameter("food_Name");
+		String price = request.getParameter("price");
+		String description = request.getParameter("description");
+		
+		//이미지 업로드
+		Part part = request.getPart("Image");	
+		String dir = "C:\\upload\\";
+		String filename = UUID.randomUUID().toString().replace("-", "");
+		String ext = ".jpg";
+		part.write(dir+filename+ext);
+		String image = dir+filename+ext;
+		
+		// foodBean 객체에 정보 넣고 클래스 변수 set하기
+		foodBean new_Food = new foodBean();
+		new_Food.setCode(code);
+		new_Food.setFood_Name(food_Name);
+		new_Food.setPrice(price);
+		new_Food.setDescription(description);
+		new_Food.setImage(image);
+		
+		// DB ServletContext 생성
+		ServletContext sc = getServletContext();
+		
+		// DB insert함수 호출
+		boolean isCompleteUpload = food_DButil.insertDB(sc, new_Food);
+		
+		// 성공 여부에 따라 출력화면 제어
+		if(isCompleteUpload){
+			//System.out.println("음식 업로드 성공");
+			response.sendRedirect("food_main_Admin.jsp");
+		}
+		else{
+			System.out.println("실패");		
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('항목을 다시 확인해주세요')");
+			script.println("history.back()");
+			script.println("</script>");
+			//PrintWriter out = response.getWriter();
+			//out.println("<h2>Upload Error<h2>");	
+			response.sendRedirect("food_main_Admin.jsp");
+		}
+	}
+}

@@ -1,0 +1,23 @@
+body {
+  background-color: #191A20;
+  margin: 0;
+  padding: 0;
+}
+@keyframes circle-anima {
+  0% {""}
+  10% {opacity: 1}
+  100% {transform: rotate(360deg)}
+}
+/* /////////////////////////////////////////// credit //////////*/
+#link {
+  bottom: 20px;
+  color: #CF002F;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#link p {font-size: 20px; margin: 0; margin-left: 5px;}
+#link:hover {opacity: 1;}

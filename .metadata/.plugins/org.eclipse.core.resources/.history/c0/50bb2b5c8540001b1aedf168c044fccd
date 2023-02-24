@@ -1,0 +1,236 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="seat.*" %>
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>사용자 자리 관리자모드view</title>
+  <link rel="stylesheet" href="../css/manageView.css">
+  <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<%
+	ServletContext sc = getServletContext();
+ 	ArrayList<seatUserBean> seatList = seatDButil.getSeatUserList(sc);
+ 	String name[] = new String[5];
+ 	String time[] = new String[5];
+ 	int seat_id[] = new int[5];
+ 	for(int i=0; i<seatList.size(); i++){
+ 		seatUserBean seatUser = seatList.get(i);
+ 		name[i] = seatUser.getName();
+ 		time[i] = seatUser.getTime();
+ 		seat_id[i] = seatUser.getSeat_id()-1;
+ 	}	
+	%>
+		
+<div class="nav-header">
+    <div class="nav-brand">
+    <i class="fa fa-bars fa-3x"></i>
+    <div class="header-links">
+      <ul>
+        <li data-menuanchor="thirdPage"><a href="../login/logoutAction.jsp">LOGOUT</a></li>
+        <li data-menuanchor="secondPage"><a href="../food/food_main_Admin.jsp">MENU</a></li>
+        <li data-menuanchor="firstPage"><a href="../user/memberList.jsp">USER INFO</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+<!-- partial:index.partial.html -->
+<div id="app-cover">
+  <div class="row">
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-1" >
+          <div class="knobs"></div>
+          <div class="layer">
+         <div class="0" style="text-align:center;padding-top:10px;">00:00:00</div>
+         <div id="0-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+         <div id="0-user" style="padding-left:15px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+         <div class="0buttons" style="top:20%; padding-left:17px; ">         
+         <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,3600, 1);" value="한시간추가"/>   
+         <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(0,7200, 1);" value="두시간추가"/>
+         <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;"onclick="fucEndTimer(0);" value="사용종료"/>
+         </div>
+          </div>
+             
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-2">
+          <div class="knobs"></div>
+             <div class="layer">
+                <div class="1" style="text-align:center;padding-top:10px;">00:00:00</div>
+                <div id="1-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+                <div id="1-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+                <div class="1buttons" style="top:20%; padding-left:17px; ">      
+            <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(1,3600, 2);" value="한시간추가"/>
+            <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;" onclick="fncAddTime(1,7200, 2);" value="두시간추가"/>
+            <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;" onclick="fucEndTimer(1);" value="사용종료"/>
+            </div>
+         </div>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-3">
+          <div class="knobs"></div>
+          <div class="layer">
+             <div class="2" style="text-align:center;padding-top:10px;">00:00:00</div>
+                <div id="2-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+                <div id="2-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+                <div class="2buttons" style="top:20%; padding-left:17px; ">      
+            <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(2,3600, 3);" value="한시간추가"/>
+            <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;" onclick="fncAddTime(2,7200, 3);" value="두시간추가"/>
+            <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;" onclick="fucEndTimer(2);" value="사용종료"/>
+            </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-4">
+          <div class="knobs"></div>
+          <div class="layer">
+          <div class="3" style="text-align:center;padding-top:10px;">00:00:00</div>
+                <div id="3-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+                <div id="3-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+                <div class="3buttons" style="top:20%; padding-left:17px; ">      
+            <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(3,3600, 4);" value="한시간추가"/>
+            <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;" onclick="fncAddTime(3,7200, 4);" value="두시간추가"/>
+            <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;" onclick="fucEndTimer(3);" value="사용종료"/>
+            </div>
+         </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="toggle-button-cover">
+      <div class="button-cover">
+        <div class="button r" id="button-5">
+          <div class="knobs"></div>
+          <div class="layer">
+             <div class="4" style="text-align:center;padding-top:10px;">00:00:00</div>
+                <div id="4-state" style="text-align:center;padding-top:3px;padding-bottom:10px;">사용중</div>
+                <div id="4-user" style="padding-left:5px; font-size:20px; color:#708090; padding-bottom:20px;"> </div>
+                <div class="1buttons" style="top:20%; padding-left:17px; ">      
+            <input type="button" style="background:#80C4DE; margin:5px;color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;"onclick="fncAddTime(4,3600, 5);" value="한시간추가"/>
+            <input type="button" style="background:#80C4DE; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:9px;" onclick="fncAddTime(4,7200, 5);" value="두시간추가"/>
+            <input type="button" style="background:#EA575B; margin-left:50px; color:#fff;border:none; font-family:'Hanna', sans-serif;padding:10px;" onclick="fucEndTimer(4);" value="사용종료"/>
+            </div>
+         </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+
+<!-- partial -->
+<script type="text/javascript">
+		var handler = new Array();
+		var leftT = new Array();
+       
+		var time1 = "<%=time[0]%>"*1;
+		var time2 = "<%=time[1]%>"*1;
+		var time3 = "<%=time[2]%>"*1;
+		var time4 = "<%=time[3]%>"*1;
+		var time5 = "<%=time[4]%>"*1;
+   
+		var name1 = "<%=name[0]%>";
+		var name2 = "<%=name[1]%>";
+		var name3 = "<%=name[2]%>";
+		var name4 = "<%=name[3]%>";
+		var name5 = "<%=name[4]%>";
+   
+		var seat1 = "<%=seat_id[0]%>";
+		var seat2 = "<%=seat_id[1]%>";
+		var seat3 = "<%=seat_id[2]%>";
+		var seat4 = "<%=seat_id[3]%>";
+		var seat5 = "<%=seat_id[4]%>";
+       
+	       /* Timer */
+	       function countdown(className, seconds, user){
+	          var tnum = className; //타이머 번호
+	          var element,stateName,userName,endTime, hours, mins, secs, msLeft, time;
+	          
+	          stateName = className.concat("-state");
+	          userName = className.concat("-user");
+	         var sUser = String(user);
+	          function updateTimer(){
+	                      msLeft = endTime - (+new Date);
+	                      if ( msLeft < 0 ) { // 시간 초과시 이벤트 영역
+	                         stateName = className.concat("-state");
+	                         document.getElementById(stateName).innerHTML = '빈좌석';
+	                         document.getElementById(userName).innerHTML = ' ';
+	                      }
+	                      else {
+	                         document.getElementById(stateName).innerHTML = '사용중';//빈좌석을 사용중으로 변경 후 
+	                         document.getElementById(userName).innerHTML = sUser ; //사용자 이름을 표기
+	                              time = new Date( msLeft );
+	                              leftT[tnum] = msLeft; //현재 남은 시간을 전역으로 추가
+	                              hours = ('0' + time.getUTCHours()).slice(-2);
+	                              mins  = ('0' + time.getUTCMinutes()).slice(-2);
+	                              secs  = ('0' + time.getUTCSeconds()).slice(-2);
+	                              element.innerHTML = hours + ':' + mins + ':' + secs;
+	                              handler[tnum] = setTimeout(updateTimer, time.getUTCMilliseconds());
+	                      }
+	               }
+	               element = document.getElementsByClassName(className);
+	               if(element.length!=0) {// 해당 타이머가 맞는지 확인
+	                      element = element[0];
+	                      endTime = (+new Date) + 1000 * seconds;
+	                      updateTimer(); // 타이머 실행
+	                      
+	               } else { //해당 타이머가 아니면...
+	                      //alert("no timer");
+	               }
+	       }
+	       
+	       
+	       fncLoadTimer();
+
+	function fncAddTime(tableNum, time, number) { //버튼 클릭
+	         clearTimeout(handler[tableNum]);
+	            tleft = leftT[tableNum] / 1000;
+	            timerName = String(tableNum);
+	            if(number==1){
+	            	countdown(timerName,tleft + time, name1);
+	            }else if(number==2){
+	            	countdown(timerName,tleft + time, name2);
+	            }else if(number==3){
+	            	countdown(timerName,tleft + time, name3);
+	            }else if(number==4){
+	            	countdown(timerName,tleft + time, name4);
+	            }else{
+	            	countdown(timerName,tleft + time, name5);
+	            }
+	         
+	}
+	  
+	function fncLoadTimer() { //페이지 최초 실행시 db에서 불러오기	
+	   	countdown(seat1, time1, name1);  // seconds 로 생성  사용자 이름
+	   	countdown(seat2, time2, name2);
+	   	countdown(seat3, time3, name3);
+	   	countdown(seat4, time4, name4);
+	   	countdown(seat5, time5, name5);
+	}
+
+
+	function fucEndTimer(timernum){ //사용종료
+	   clearTimeout(handler[timernum]);
+	   timerName = String(timernum);
+	   countdown(timerName,0);
+	} 
+
+</script>
+</body>
+</html>
